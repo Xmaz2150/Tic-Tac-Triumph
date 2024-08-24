@@ -8,5 +8,5 @@ Tic Tac Toe web app (computer or multiplayer).
 
 
 **[Joy-okoro]**  
-[revolutionbrand18@gmail.com](mailto: conyekelu@yahoo.com)
+[revolutionbrand18@gmail.com](mailto: revolutionbrand18@gmail.com)
  

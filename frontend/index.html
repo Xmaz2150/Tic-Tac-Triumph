@@ -3,32 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Triumph</title>
+    <title>Tic Tac Toe Triumph</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="canvas.js" defer></script>
 </head>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-    /**
-     * socket enables real-time, bidirectional and event-based communication to server
-     */
-    const socket = io();
-
-    /**
-     * canvas enables to draw basic shape on the screen
-     */
-    var canvas;
-    var ctx;
-
-    window.onload = () => {
-        socket.emit('test', 'Canvas created');
-        canvas = document.getElementById('gameCanvas');
-        ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(50, 25, 500, 450);
-    }
-</script>
 <body>
-    <h1>Let's play a game</h1>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <h1>Let's Play a Game!</h1>
+    <canvas id="gameCanvas" width="600" height="500" style="border:1px solid #000000;"></canvas>
 </body>
 </html>

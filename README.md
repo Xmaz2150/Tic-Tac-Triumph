@@ -25,9 +25,11 @@ Tic Tac Toe web app (computer or multiplayer).
 - HTML5 Canvas (subject for change)
 
 ## Authors
-**[Taf Muzira]**  
+- **[Taf Muzira]**  
 [muzirat0@gmail.com](mailto:muzirat0@gmail.com)
 
-**Onyekelu Chukwuebuka**  
+- **[Onyekelu Chukwuebuka]**  
 [conyekelu@yahoo.com](mailto:conyekelu@yahoo.com)
- 
+
+- **[Steve Murimi]**
+[murimi101@gmail.com](mailto:murimi101@gmail.com)

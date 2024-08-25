@@ -10,21 +10,72 @@
     /**
      * socket enables real-time, bidirectional and event-based communication to server
      */
-    const socket = io();
+     const socket = io();
 
     /**
      * canvas enables to draw basic shape on the screen
      */
     var canvas;
     var ctx;
+    console.log('canvas.js loaded');
 
     window.onload = () => {
         socket.emit('test', 'Canvas created');
+        console.log('Window loaded');
         canvas = document.getElementById('gameCanvas');
+        if (!canvas) {
+            console.error('Canvas element not found');
+            return;
+        }
         ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get canvas context');
+            return;
+        }
 
+        squareSize = 100;
+        rows = 3;
+        cols = 3;
+
+        // Draw squares
         ctx.fillStyle = 'blue';
-        ctx.fillRect(50, 25, 500, 450);
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                ctx.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
+            }
+        }
+
+        // Draw grid lines
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        for (let row = 0; row <= rows; row++) {
+            ctx.beginPath();
+            ctx.moveTo(0, row * squareSize);
+            ctx.lineTo(cols * squareSize, row * squareSize);
+            ctx.stroke();
+        }
+        for (let col = 0; col <= cols; col++) {
+            ctx.beginPath();
+            ctx.moveTo(col * squareSize, 0);
+            ctx.lineTo(col * squareSize, rows * squareSize);
+            ctx.stroke();
+        }
+
+        // Add click event listener to the canvas
+        canvas.addEventListener('click', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            const clickedCol = Math.floor(x / squareSize);
+            const clickedRow = Math.floor(y / squareSize);
+
+            // Check if the click is within the grid boundaries
+            if (clickedCol >= 0 && clickedCol < cols && clickedRow >= 0 && clickedRow < rows) {
+                const gridNumber = clickedRow * cols + clickedCol;
+                console.log(`Clicked on grid number: ${gridNumber}`);
+            }
+        });
     }
 </script>
 <body>

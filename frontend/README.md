@@ -17,4 +17,4 @@
 ##  Running the Frontend Server:
 - ```cd frontend```: navigate to the frontend directory
 - ```http-server```: running this command opens up a server on port 8080 and exposes the application via localhost.
-- ```http://192.168.56.96:8080```: if everything went well, the application should be live in your browser.
+- ```http://localhost.96:8080```: if everything went well, the application should be live in your browser.

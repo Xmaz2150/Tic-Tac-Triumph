@@ -11,10 +11,10 @@
     ```sh
     npm install http-server
     ```
-    <p>The way that the refactoring above works is in the fashion of having a seperate http server for the user facing part of the application, currently with this refactoring, the node.js server is incapable of serving the application as the html window object is not accessable to it</p>
+<p>The way that the refactoring above works is in the fashion of having a seperate http server for the user facing part of the application, currently with this refactoring, the node.js server is incapable of serving the application as the html window object is not accessable to it</p>
     <p>Socket.io is not needed at this stage since there's not way to hook both the frontend and backend, although that would need to change in the future when we have functional backend and routes setup for the frontend to send http requests to</p>
     
 ##  Running the Frontend Server:
 - ```cd frontend```: navigate to the frontend directory
 - ```http-server```: running this command opens up a server on port 8080 and exposes the application via localhost.
-- ```http://localhost.96:8080```: if everything went well, the application should be live in your browser.
+- ```http://localhost:8080```: if everything went well, the application should be live in your browser.

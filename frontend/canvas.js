@@ -3,7 +3,7 @@
  */
 var canvas;
 var ctx;
-var squareSize = 300;
+var squareSize = 200;
 var rows = 3;
 var cols = 3;
 var board = Array(rows).fill(null).map(() => Array(cols).fill(null));

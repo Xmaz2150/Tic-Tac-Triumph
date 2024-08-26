@@ -82,7 +82,7 @@ function drawMark(row, col, player) {
     ctx.font = '40px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(player, col * squareSize + squareSize / 3, row * squareSize + squareSize / 3);
+    ctx.fillText(player, col * squareSize + squareSize / 2, row * squareSize + squareSize / 2);
 }
 
 function checkWin(row, col) {

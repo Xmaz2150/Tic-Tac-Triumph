@@ -9,6 +9,9 @@ const port = 3000;
 const server = createServer(app);
 const io = new Server(server);
 
+// Serve static files from the 'frontend' directory
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });

@@ -3,7 +3,7 @@
  */
 var canvas;
 var ctx;
-var squareSize = 150;
+var squareSize = 110;
 var rows = 3;
 var cols = 3;
 var board = Array(rows).fill(null).map(() => Array(cols).fill(null));
@@ -79,10 +79,10 @@ function drawMark(row, col, player) {
     ctx.strokeRect(col * squareSize, row * squareSize, squareSize, squareSize);
 
     ctx.fillStyle = 'black';
-    ctx.font = '80px Arial';
+    ctx.font = '40px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(player, col * squareSize + squareSize / 2, row * squareSize + squareSize / 2);
+    ctx.fillText(player, col * squareSize + squareSize / 3, row * squareSize + squareSize / 3);
 }
 
 function checkWin(row, col) {

@@ -9,15 +9,35 @@ const port = 3000;
 const server = createServer(app);
 const io = new Server(server);
 
+// Serve static files
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-io.on('connection', (socket) => {
-    console.log('player connected');
+const rooms = {};
 
-    socket.on('test', (msg) => {
-        console.log(msg);
+io.on('connection', (socket) => {
+    socket.on('joinRoom', (roomData) => {
+        if (!rooms[roomData.ID]) {
+            rooms[roomData.ID] = [];
+        }
+
+        if (rooms[roomData.ID].length < 2) {
+            rooms[roomData.ID].push(socket.id);
+            socket.join(roomData.ID);
+
+            if (rooms[roomData.ID].length === 2) {
+                console.log(rooms[roomData.ID]);
+                io.to(roomData.ID).emit('StartGame', rooms[roomData.ID]);
+            }
+        } else {
+            console.log('Room is full');
+        }
+    });
+    socket.on('playerMove', (room, data) => {
+        io.to(room.ID).emit('moves', data);
     });
     socket.on('disconnect', () => {
         console.log('player disconnected');

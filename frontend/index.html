@@ -13,14 +13,27 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
         }
 
         #gameCanvas {
-            border: 1px solid black;
-            background-color: lightgray;
+            border: 5px solid #fff;
+            background-color: #ffeb3b;
             width: 80vmin;
             height: 80vmin;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        #gameCanvas:hover {
+            transform: scale(1.05);
         }
 
         #restartButton {
@@ -28,12 +41,59 @@
             margin-top: 10px;
             padding: 10px 20px;
             font-size: 1rem;
+            background-color: #ff4081;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #restartButton:hover {
+            background-color: #f50057;
+            transform: scale(1.1);
         }
 
         #scoreboard {
             margin-top: 20px;
-            font-size: 1rem;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
             text-align: center;
+            color: #000;
+        }
+
+        #scoreboard p {
+            margin: 1px 0;
+        }
+
+        #githubButtonContainer {
+            position: fixed;
+            Top: 20px;
+            left: 90%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        #githubButton {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #24292e;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #githubButton:hover {
+            background-color: #0366d6;
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -83,14 +143,14 @@
         // Draw the game grid
         function drawGrid() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'blue';
+            ctx.fillStyle = '#4caf50';
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
                     ctx.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
                 }
             }
 
-            ctx.strokeStyle = 'black';
+            ctx.strokeStyle = '#fff';
             ctx.lineWidth = 2;
             for (let row = 0; row <= rows; row++) {
                 ctx.beginPath();
@@ -191,9 +251,9 @@
         // Clear the glowing effect from the box
         function clearGlow(row, col) {
             ctx.clearRect(col * squareSize, row * squareSize, squareSize, squareSize);
-            ctx.fillStyle = 'blue';
+            ctx.fillStyle = '#4caf50';
             ctx.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
-            ctx.strokeStyle = 'black';
+            ctx.strokeStyle = '#fff';
             ctx.lineWidth = 2;
             ctx.strokeRect(col * squareSize, row * squareSize, squareSize, squareSize);
             if (board[row][col] !== null) {
@@ -203,14 +263,14 @@
 
         // Draw the player's mark on the board
         function drawMark(row, col, player) {
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = '#fff';
             ctx.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
-            ctx.strokeStyle = 'black';
+            ctx.strokeStyle = '#000';
             ctx.lineWidth = 2;
             ctx.strokeRect(col * squareSize, row * squareSize, squareSize, squareSize);
 
-            ctx.fillStyle = 'black';
-            ctx.font = `${squareSize * 0.8}px Arial`;
+            ctx.fillStyle = '#000';
+            ctx.font = `${squareSize * 0.8}px 'Comic Sans MS', cursive, sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(player, col * squareSize + squareSize / 2, row * squareSize + squareSize / 2);
@@ -222,25 +282,25 @@
             
             // Check row
             if (board[row].every(cell => cell === player)) {
-                drawWinningLine(row, 0, row, cols - 1);
+                setTimeout(() => drawWinningLine(row, 0, row, cols - 1), 0);
                 return true;
             }
 
             // Check column
             if (board.every(r => r[col] === player)) {
-                drawWinningLine(0, col, rows - 1, col);
+                setTimeout(() => drawWinningLine(0, col, rows - 1, col), 0);
                 return true;
             }
 
             // Check diagonal
             if (row === col && board.every((r, i) => r[i] === player)) {
-                drawWinningLine(0, 0, rows - 1, cols - 1);
+                setTimeout(() => drawWinningLine(0, 0, rows - 1, cols - 1), 0);
                 return true;
             }
 
             // Check anti-diagonal
             if (row + col === cols - 1 && board.every((r, i) => r[cols - 1 - i] === player)) {
-                drawWinningLine(0, cols - 1, rows - 1, 0);
+                setTimeout(() => drawWinningLine(0, cols - 1, rows - 1, 0), 0);
                 return true;
             }
 
@@ -301,5 +361,10 @@
             });
         }
     </script>
+
+<div id="githubButtonContainer">
+    <a id="githubButton" href="https://github.com/Stevecmd/Tic-Tac-Triumph/" target="_blank">Check out our GitHub!</a>
+</div>
+
 </body>
 </html>

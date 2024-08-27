@@ -22,6 +22,8 @@
 
     "baseUrl": ".",
     "paths": {
+      "components/*": ["./src/components/*"],
+      "contexts/*": ["./src/contexts/*"],
       "styles/*": ["./src/styles/*"],
       "utils/*": ["./src/utils/*"]
     }

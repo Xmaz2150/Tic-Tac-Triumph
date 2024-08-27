@@ -2,11 +2,12 @@
 Tic Tac Toe web app (computer or multiplayer).
 
 ## Description
-- Boiler plate for the game, this is just a quick overview of how the connection can be established between the server and client including basic rendering.
+- Tic Tac Toe multiplayer game.
 
 ## Project Structure
 - `backend/index.js`: Main server file.
 - `frontend/index.html`: Game interface.
+- `frontend/index.js`: Client-side logic for handling game interactions and rendering.
 
 ## Installation
 1. Install dependencies:
@@ -19,10 +20,17 @@ Tic Tac Toe web app (computer or multiplayer).
     ```
 3. Open `http://localhost:3000` in your browser.
 
+## Features
+- Multiplayer support using Socket.io.
+- Real-time game updates and player moves.
+- Sound effects for game interactions.
+- Scoreboard updates for wins and draws.
+- Responsive canvas resizing.
+
 ## Technologies Used
 - Express.js
 - Socket.io
-- HTML5 Canvas (subject for change)
+- HTML5 Canvas
 
 ## Authors
 - **[Taf Muzira]**  
@@ -33,6 +41,5 @@ Tic Tac Toe web app (computer or multiplayer).
 
 - **[Steve Murimi]**
 [murimi101@gmail.com](mailto:murimi101@gmail.com)
-
 
 Sound Effects from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6185">Pixabay</a>

@@ -11,6 +11,7 @@ export default defineConfig({
       components: path.resolve(__dirname, "./src/components"),
       styles: path.resolve(__dirname, "./src/styles"),
       utils: path.resolve(__dirname, "./src/utils"),
+      sounds: path.resolve(__dirname, "./src/sounds"),
     },
   },
 });

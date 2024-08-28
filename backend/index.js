@@ -1,22 +1,37 @@
-const express = require('express');
-const { createServer } = require('http');
-const { Server } = require('socket.io');
-const path = require('path');
+const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const path = require("path");
+const cors = require("cors");
 
 /* helpers */
 const Lobby = require('./lobby');
 
 const app = express();
 const port = 3000;
+// Configure CORS options
+const corsOptions = {
+  origin: "http://localhost:2000",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:2000",
+    methods: ["GET", "POST"],
+  },
+});
 
 /* Serve static files from the 'frontend' directory */
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 const lobby = new Lobby();
@@ -48,5 +63,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, () => {
-    console.log(`app listening at http://localhost:${port}`);
+  console.log(`app listening at http://localhost:${port}`);
 });

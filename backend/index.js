@@ -3,6 +3,9 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 const path = require('path');
 
+/* helpers */
+const Lobby = require('./lobby');
+
 const app = express();
 const port = 3000;
 
@@ -16,23 +19,16 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-const rooms = {};
+const lobby = new Lobby();
 
 io.on('connection', (socket) => {
     socket.on('joinRoom', (roomData) => {
-        if (!rooms[roomData.ID]) {
-            rooms[roomData.ID] = [];
-        }
-
-        if (rooms[roomData.ID].length < 2) {
-            rooms[roomData.ID].push(socket.id);
-            socket.join(roomData.ID);
-
-            if (rooms[roomData.ID].length === 2) {
-                console.log(rooms[roomData.ID]);
-                io.to(roomData.ID).emit('StartGame', rooms[roomData.ID]);
-            }
-        } else {
+        const status = lobby.addPlayer(socket, roomData);
+        if (status === 1) {
+            const players = lobby.getPlayers();
+            console.log(players);
+            io.to(roomData.ID).emit('StartGame', players);
+        } else if (status === -1 ) {
             console.log('Room is full');
         }
     });
@@ -40,7 +36,14 @@ io.on('connection', (socket) => {
         io.to(room.ID).emit('moves', data);
     });
     socket.on('disconnect', () => {
-        console.log('player disconnected');
+        const status = lobby.removePlayer(socket);
+        if (status === 1) {
+            io.to(lobby.roomDataT.ID).emit('playerDisconnected', socket.id);
+        } else if (status === -1) {
+            console.log(`Could not remove player from this room: ${'?'}`);
+        } else if (status === -2) {
+            console.log('Invalid room');
+        }
     });
 });
 

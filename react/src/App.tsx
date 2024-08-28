@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import TicTacToe from "components/TicTacToe";
 import { AppContext, AppContextType } from "contexts/AppContext";
 import { PLAYER_X, PROGRESS_STATE } from "utils/constants";
-import { io } from 'socket.io-client';
+import { io, Socket } from "socket.io-client";
 
 import "styles/base.css";
 import "./style.css";
@@ -13,16 +13,31 @@ function App() {
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
   const [gameState, setGameState] = useState(PROGRESS_STATE);
-  
-  const socket = io('http://localhost:3000'); 
+  const [socket, setSocket] = useState<Socket | null>(null);
 
-socket.on('connect', () => {
-  console.log('Connected to the server:', socket.id);
-});
+  useEffect(() => {
+    const newSocket = io("http://localhost:3000");
+    setSocket(newSocket);
 
-socket.on('disconnect', () => {
-  console.log('Disconnected from the server');
-});
+    newSocket.on("connect", () => {
+      console.log("Connected to the server:", newSocket.id);
+    });
+
+    newSocket.on("disconnect", () => {
+      console.log("Disconnected from the server");
+    });
+
+    newSocket.emit("joinRoom", { ID: 1 });
+
+    newSocket.on("moves", (data) => {
+      console.log(`received event from server`, data);
+      setTiles(data.tiles);
+    });
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
 
   const context: AppContextType = {
     tiles,
@@ -36,6 +51,8 @@ socket.on('disconnect', () => {
 
     gameState,
     setGameState,
+
+    socket,
   };
 
   return (

@@ -24,6 +24,7 @@ function Tile({ index }: { index: number }) {
     gameState,
     setGameState,
     setStrikeClass,
+    socket,
   } = useAppContext();
 
   const isDisabled = tiles[index] !== null || gameState !== PROGRESS_STATE;
@@ -41,6 +42,8 @@ function Tile({ index }: { index: number }) {
     setPlayerTurn(player);
 
     checkWinner(newTiles);
+
+    socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
   }
 
   function checkWinner(tiles: (string | null)[]) {

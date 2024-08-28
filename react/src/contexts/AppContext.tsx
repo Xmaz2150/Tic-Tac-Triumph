@@ -1,4 +1,5 @@
 import { useContext, createContext } from "react";
+import { Socket } from "socket.io-client";
 
 export type AppContextType = {
   tiles: (string | null)[];
@@ -9,6 +10,7 @@ export type AppContextType = {
   setStrikeClass: React.Dispatch<React.SetStateAction<string>>;
   gameState: number;
   setGameState: React.Dispatch<React.SetStateAction<number>>;
+  socket: Socket | null;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

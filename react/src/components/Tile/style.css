@@ -1,12 +1,16 @@
 .tile {
-  color: white;
+  color: var(--saffron);
   font-size: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 4px solid #0074a6;
-  border-bottom: 4px solid #0074a6;
+  border-right: 4px solid var(--uranian-blue);
+  border-bottom: 4px solid var(--uranian-blue);
   cursor: pointer;
+}
+
+.tile:disabled {
+  cursor: default;
 }
 
 .tile:nth-child(3n) {

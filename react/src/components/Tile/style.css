@@ -1,0 +1,30 @@
+.tile {
+  color: white;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 4px solid #0074a6;
+  border-bottom: 4px solid #0074a6;
+  cursor: pointer;
+}
+
+.tile:nth-child(3n) {
+  border-right: none;
+}
+
+.tile:nth-child(7),
+.tile:nth-child(8),
+.tile:nth-child(9) {
+  border-bottom: none;
+}
+
+.tile[data-player="X"]:not(:disabled):hover::after {
+  content: "X";
+  opacity: 0.4;
+}
+
+.tile[data-player="O"]:not(:disabled):hover::after {
+  content: "O";
+  opacity: 0.4;
+}

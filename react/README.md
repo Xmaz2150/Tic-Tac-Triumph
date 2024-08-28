@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# Tic-Tac-Toe React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple Tic-Tac-Toe game built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Choose one of the following package managers to install the dependencies:
 
-## Expanding the ESLint configuration
+### npm
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+`npm install`
 
-- Configure the top-level `parserOptions` property like this:
+### yarn
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+`yarn install`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### pnpm
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+`pnpm install`
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Running the App
+
+To run the app on port 3000, use one of the following commands based on your package manager:
+
+### npm
+
+`npm run dev`
+
+### yarn
+
+`yarn dev`
+
+### pnpm
+
+`pnpm run dev`
+
+The app will start running on `http://localhost:3000`.
+
+## Project Structure
+
+The main components of the app are:
+
+1. `App.tsx`: The root component that sets up the game state and context.
+2. `TicTacToe.tsx`: The main game component.
+3. `Board.tsx`: Renders the game board.
+4. `Tile.tsx`: Individual tile component for the game board.
+5. `Strike.tsx`: Renders the strike line for winning combinations.
+6. `Reset.tsx`: Reset button component.\*\*\*\*
+
+## Game Logic
+
+The game logic is implemented using React hooks and context. The main state is managed in the `App.tsx` component and passed down to child components using the `AppContext`.
+
+## Styling
+
+The app uses CSS modules for styling. The main styles are defined in `src/styles/base.css`.
+
+## Configuration
+
+The app is configured using Vite. The configuration can be found in `vite.config.ts`.
+
+This configuration sets up the development server to run on port 3000 and defines path aliases for easier imports.
+
+---

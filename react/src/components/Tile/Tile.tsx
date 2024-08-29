@@ -2,7 +2,6 @@ import { useAppContext } from "contexts/AppContext";
 import {
   DRAW_STATE,
   O_WINS_STATE,
-  PLAYER_O,
   PLAYER_X,
   PROGRESS_STATE,
   WIN_COMBOS,
@@ -29,11 +28,16 @@ function Tile({ index }: { index: number }) {
     setActivePlayer,
   } = useAppContext();
 
+  interface Player {
+    socket_id: string;
+    // Add other properties of the activePlayer object here
+  }
+  
   const isDisabled = tiles[index] !== null || gameState !== PROGRESS_STATE;
 
  function onClick() {
    if (isDisabled) return;
-   if (activePlayer && activePlayer.socket_id == socket.id) {
+    if (activePlayer && (activePlayer as Player).socket_id == socket?.id) {
      
    
      const newTiles = [...tiles];

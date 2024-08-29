@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Player } from 'contexts/AppContext'; 
 
 import TicTacToe from "components/TicTacToe";
 import { AppContext, AppContextType } from "contexts/AppContext";
@@ -12,8 +13,9 @@ function App() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
-  const [currentPlayer, setCurrentPlayer] = useState({});
-  const [activePlayer, setActivePlayer] = useState({});
+  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+  const [activePlayer, setActivePlayer] = useState<Player | null>(null);
+  const [allPlayers, setAllPlayers] = useState<Player[] | null>(null);
   const [gameState, setGameState] = useState(PROGRESS_STATE);
   const [socket, setSocket] = useState<Socket | null>(null);
 
@@ -32,10 +34,11 @@ function App() {
     newSocket.emit("joinRoom", { ID: 1 });
 
     newSocket.on("StartGame", (players) => {
-      const player = players.find((player) => {
+      setAllPlayers(players)
+      const player = players.find((player: { socket_id: string | undefined; }) => {
         return player.socket_id === newSocket.id
       })
-      if (Object.keys(activePlayer).length === 0) {
+      if (!activePlayer || Object.keys(activePlayer).length === 0) {
         setActivePlayer(player);
         setPlayerTurn(player.icon);
       }
@@ -74,6 +77,9 @@ function App() {
 
     activePlayer,
     setActivePlayer,
+
+    allPlayers,
+    setAllPlayers,
 
   };
 

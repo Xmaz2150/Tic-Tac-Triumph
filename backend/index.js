@@ -50,23 +50,9 @@ io.on("connection", (socket) => {
   socket.on("playerMove", (room, data) => {
     let player = lobby.getSockPlayer(socket);
     //   let next_player
-    io.to(room.ID).emit("moves", data, player.next.icon);
+    io.to(room.ID).emit("moves", data, player.next);
   });
-  socket.on("checkPlayerEligibility", (room, player_icon) => {
-      let sock_player = lobby.getSockPlayer(socket);
-      console.log(sock_player)
-    if (sock_player.curr.icon == player_icon) {
-      io.to(room.ID).emit("EligibilityStatus", {
-        status: true,
-        icon: sock_player.next.icon,
-      });
-    } else {
-      io.to(room.ID).emit("EligibilityStatus", {
-        status: false,
-        icon: sock_player.curr.icon,
-      });
-    }
-  });
+
   socket.on("disconnect", () => {
     const status = lobby.removePlayer(socket);
     if (status === 1) {

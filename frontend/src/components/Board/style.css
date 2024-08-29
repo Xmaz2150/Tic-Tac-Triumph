@@ -11,4 +11,11 @@
     grid-template-rows: 100px 100px 100px;
   }
 }
-
+header {
+  font-size: 1.5rem;
+  margin: 10px;
+  color: moccasin;
+  animation: all 0.3s ease-in;
+  text-align: center;
+  
+}

@@ -7,6 +7,13 @@ export type Player = {
   icon: string;
 };
 
+export interface Score {
+  X: number;
+  O: number;
+  draw: number;
+}
+
+
 export type AppContextType = {
   tiles: (string | null)[];
   setTiles: React.Dispatch<React.SetStateAction<(string | null)[]>>;
@@ -23,6 +30,8 @@ export type AppContextType = {
   setActivePlayer: React.Dispatch<React.SetStateAction<Player | null>>;
   allPlayers: Player[] | null;
   setAllPlayers: React.Dispatch<React.SetStateAction<Player[] | null>>;
+  score: Score;
+  setScore: React.Dispatch<React.SetStateAction<Score>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Player } from 'contexts/AppContext'; 
+import { Player, Score } from 'contexts/AppContext'; 
 
 import TicTacToe from "components/TicTacToe";
 import { AppContext, AppContextType } from "contexts/AppContext";
@@ -18,6 +18,7 @@ function App() {
   const [allPlayers, setAllPlayers] = useState<Player[] | null>(null);
   const [gameState, setGameState] = useState(PROGRESS_STATE);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [score, setScore] = useState<Score>({ X: 0, O: 0, draw:0});
 
   useEffect(() => {
     const newSocket = io("http://localhost:3000");
@@ -80,6 +81,9 @@ function App() {
 
     allPlayers,
     setAllPlayers,
+
+    score,
+    setScore,
 
   };
 

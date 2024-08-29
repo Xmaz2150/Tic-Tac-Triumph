@@ -1,6 +1,7 @@
 import { useContext, createContext } from "react";
 import { Socket } from "socket.io-client";
 
+
 // Define the type for a player
 export type Player = {
   socket_id: string;
@@ -12,8 +13,6 @@ export interface Score {
   O: number;
   draw: number;
 }
-
-
 export type AppContextType = {
   tiles: (string | null)[];
   setTiles: React.Dispatch<React.SetStateAction<(string | null)[]>>;
@@ -32,6 +31,7 @@ export type AppContextType = {
   setAllPlayers: React.Dispatch<React.SetStateAction<Player[] | null>>;
   score: Score;
   setScore: React.Dispatch<React.SetStateAction<Score>>;
+
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

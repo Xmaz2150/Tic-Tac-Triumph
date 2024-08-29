@@ -1,4 +1,6 @@
+
 import { useAppContext, Score } from "contexts/AppContext";
+
 import {
   DRAW_STATE,
   O_WINS_STATE,
@@ -61,6 +63,7 @@ function Tile({ index }: { index: number }) {
   function listenMoves() {
     socket!.on("moves", (data, player) => {
       setActivePlayer(player || null)
+
       clickSound.play();
       checkWinner(data.tiles);
     });
@@ -73,11 +76,6 @@ function Tile({ index }: { index: number }) {
       const value3 = tiles[combo[2]];
 
       if (value1 && value1 === value2 && value1 === value3) {
-       
-        
-
-        
-
         const win = value1 === PLAYER_X ? X_WINS_STATE : O_WINS_STATE;
         let win_icon = ""
         const newScore: Score = { ...score };
@@ -104,6 +102,7 @@ function Tile({ index }: { index: number }) {
         setGameState(win);
 
         setStrikeClass(strikeClass);
+
         return;
       }
     }

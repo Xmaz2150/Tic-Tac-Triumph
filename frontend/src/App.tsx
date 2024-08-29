@@ -3,6 +3,7 @@ import { Player, Score } from 'contexts/AppContext';
 
 import TicTacToe from "components/TicTacToe";
 import { AppContext, AppContextType } from "contexts/AppContext";
+
 import { PLAYER_X, PROGRESS_STATE } from "utils/constants";
 import { io, Socket } from "socket.io-client";
 
@@ -20,6 +21,7 @@ function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [score, setScore] = useState<Score>({ X: 0, O: 0, draw:0});
 
+
   useEffect(() => {
     const newSocket = io("http://localhost:3000");
     setSocket(newSocket);
@@ -34,6 +36,7 @@ function App() {
 
     newSocket.emit("joinRoom", { ID: 1 });
 
+
     newSocket.on("StartGame", (players) => {
       setAllPlayers(players)
       const player = players.find((player: { socket_id: string | undefined; }) => {
@@ -47,6 +50,7 @@ function App() {
       
       
     })
+
 
     newSocket.on("moves", (data) => {
       console.log(`received event from server`, data);

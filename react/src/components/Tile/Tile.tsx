@@ -32,7 +32,7 @@ function Tile({ index }: { index: number }) {
   function onClick() {
     if (isDisabled) return;
 
-    clickSound.play();
+   
 
     const newTiles = [...tiles];
     newTiles[index] = playerTurn;
@@ -41,9 +41,11 @@ function Tile({ index }: { index: number }) {
     const player = playerTurn === PLAYER_X ? PLAYER_O : PLAYER_X;
     setPlayerTurn(player);
 
-    checkWinner(newTiles);
-
     socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
+    socket!.on("moves", (data) => {
+      clickSound.play();
+      checkWinner(data.tiles);
+    });
   }
 
   function checkWinner(tiles: (string | null)[]) {

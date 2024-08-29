@@ -5,7 +5,7 @@ const path = require("path");
 const cors = require("cors");
 
 /* helpers */
-const Lobby = require('./lobby');
+const Lobby = require("./lobby");
 
 const app = express();
 const port = 3000;
@@ -36,30 +36,47 @@ app.get("/", (req, res) => {
 
 const lobby = new Lobby();
 
-io.on('connection', (socket) => {
-    socket.on('joinRoom', (roomData) => {
-        const status = lobby.addPlayer(socket, roomData);
-        if (status === 1) {
-            const players = lobby.getPlayers();
-            console.log(players);
-            io.to(roomData.ID).emit('StartGame', players);
-        } else if (status === -1 ) {
-            console.log('Room is full');
-        }
-    });
-    socket.on('playerMove', (room, data) => {
-        io.to(room.ID).emit('moves', data);
-    });
-    socket.on('disconnect', () => {
-        const status = lobby.removePlayer(socket);
-        if (status === 1) {
-            io.to(lobby.roomDataT.ID).emit('playerDisconnected', socket.id);
-        } else if (status === -1) {
-            console.log(`Could not remove player from this room: ${'?'}`);
-        } else if (status === -2) {
-            console.log('Invalid room');
-        }
-    });
+io.on("connection", (socket) => {
+  socket.on("joinRoom", (roomData) => {
+    const status = lobby.addPlayer(socket, roomData);
+    if (status === 1) {
+      const players = lobby.getPlayers();
+      console.log(players);
+      io.to(roomData.ID).emit("StartGame", players);
+    } else if (status === -1) {
+      console.log("Room is full");
+    }
+  });
+  socket.on("playerMove", (room, data) => {
+    let player = lobby.getSockPlayer(socket);
+    //   let next_player
+    io.to(room.ID).emit("moves", data, player.next.icon);
+  });
+  socket.on("checkPlayerEligibility", (room, player_icon) => {
+      let sock_player = lobby.getSockPlayer(socket);
+      console.log(sock_player)
+    if (sock_player.curr.icon == player_icon) {
+      io.to(room.ID).emit("EligibilityStatus", {
+        status: true,
+        icon: sock_player.next.icon,
+      });
+    } else {
+      io.to(room.ID).emit("EligibilityStatus", {
+        status: false,
+        icon: sock_player.curr.icon,
+      });
+    }
+  });
+  socket.on("disconnect", () => {
+    const status = lobby.removePlayer(socket);
+    if (status === 1) {
+      io.to(lobby.roomDataT.ID).emit("playerDisconnected", socket.id);
+    } else if (status === -1) {
+      console.log(`Could not remove player from this room: ${"?"}`);
+    } else if (status === -2) {
+      console.log("Invalid room");
+    }
+  });
 });
 
 server.listen(port, () => {

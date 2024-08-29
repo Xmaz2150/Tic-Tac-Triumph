@@ -28,22 +28,24 @@ function Tile({ index }: { index: number }) {
     setActivePlayer,
   } = useAppContext();
 
-  const isDisabled = tiles[index] !== null || gameState !== PROGRESS_STATE;
+  const isDisabled =
+    !socket ||
+    !activePlayer ||
+    tiles[index] !== null ||
+    gameState !== PROGRESS_STATE ||
+    activePlayer.socket_id !== socket.id;
 
   function onClick() {
-    if (isDisabled || !socket) return;
-    if (activePlayer && activePlayer.socket_id == socket.id) {
-      const newTiles = [...tiles];
-      newTiles[index] = activePlayer.icon;
-      setTiles(newTiles);
+    if (isDisabled) return;
 
-      setPlayerTurn(activePlayer.icon);
+    const newTiles = [...tiles];
+    newTiles[index] = activePlayer.icon;
+    setTiles(newTiles);
 
-      socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
-      listenMoves();
-    } else {
-      console.log("not eligible to play icon", playerTurn);
-    }
+    setPlayerTurn(activePlayer.icon);
+
+    socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
+    listenMoves();
   }
 
   function listenMoves() {

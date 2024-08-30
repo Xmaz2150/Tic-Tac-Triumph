@@ -21,7 +21,6 @@ function App() {
   const [gameState, setGameState] = useState(PROGRESS_STATE);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [score, setScore] = useState<Score>({ X: 0, O: 0, draw:0});
-
   const [winner, setWinner] = useState<string | null>(null);
   const [waitingForPlayer, setWaitingForPlayer] = useState<boolean>(false);
 

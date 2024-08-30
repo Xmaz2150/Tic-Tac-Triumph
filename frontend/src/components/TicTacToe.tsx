@@ -9,7 +9,7 @@ import EndGameModal from "components/EndGameModal/EndGameModal";
 
 import gameOverSoundAsset from "sounds/game_over.mp3";
 
-import { X_WINS_STATE, O_WINS_STATE } from "utils/constants";
+import { X_WINS_STATE, O_WINS_STATE, PROGRESS_STATE } from "utils/constants";
 import { useAppContext } from "contexts/AppContext";
 
 const gameOverSound = new Audio(gameOverSoundAsset);
@@ -18,7 +18,7 @@ gameOverSound.volume = 0.2;
 import "./style.css";
 
 function TicTacToe() {
-  const { gameState, winner, socket, waitingForPlayer } = useAppContext();
+  const { gameState, socket, waitingForPlayer } = useAppContext();
 
   useEffect(() => {
     if (gameState === X_WINS_STATE || gameState === O_WINS_STATE) {
@@ -40,7 +40,7 @@ function TicTacToe() {
       <Reset />
       <PlayerStatus />
       <ScoreBoard />
-      {winner ? <EndGameModal /> : null}
+      {gameState !== PROGRESS_STATE ? <EndGameModal /> : null}
     </div>
   );
 }

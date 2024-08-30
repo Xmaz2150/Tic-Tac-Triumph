@@ -22,7 +22,6 @@ function App() {
   const [gameState, setGameState] = useState(PROGRESS_STATE);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [score, setScore] = useState<Score>({ X: 0, O: 0, draw: 0 });
-  const [winner, setWinner] = useState<string | null>(null);
   const [waitingForPlayer, setWaitingForPlayer] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,7 +58,6 @@ function App() {
       setTiles(Array(9).fill(null));
       setPlayerTurn(PLAYER_X);
       setStrikeClass("");
-      setWinner(null);
     });
 
     newSocket.on("waitingForPlayer", () => {
@@ -67,7 +65,7 @@ function App() {
     });
 
     newSocket.on("moves", (data) => {
-      console.log(`received event from server`, data);
+      // console.log(`received event from server`, data);
       setTiles(data.tiles);
     });
 
@@ -76,7 +74,6 @@ function App() {
       setTiles(Array(9).fill(null));
       setPlayerTurn(PLAYER_X);
       setStrikeClass("");
-      setWinner(null);
     });
 
     return () => {
@@ -110,9 +107,6 @@ function App() {
 
     score,
     setScore,
-
-    winner,
-    setWinner,
 
     waitingForPlayer,
     setWaitingForPlayer,

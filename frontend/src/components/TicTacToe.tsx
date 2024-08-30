@@ -22,7 +22,6 @@ function TicTacToe() {
 
   const { gameState, winner, socket, waitingForPlayer } = useAppContext();
 
-
   useEffect(() => {
     if (gameState === X_WINS_STATE || gameState === O_WINS_STATE) {
       gameOverSound.play();

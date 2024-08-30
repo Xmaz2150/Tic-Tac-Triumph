@@ -56,6 +56,14 @@ function App() {
       setTiles(data.tiles);
     });
 
+    newSocket.on("resetGame", () => {
+      setGameState(PROGRESS_STATE);
+      setTiles(Array(9).fill(null));
+      setPlayerTurn(PLAYER_X);
+      setStrikeClass("");
+      setWinner(null);
+    });
+
     return () => {
       newSocket.disconnect();
     };

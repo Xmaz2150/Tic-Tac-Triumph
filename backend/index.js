@@ -47,16 +47,22 @@ io.on("connection", (socket) => {
       console.log("Room is full");
     }
   });
+
   socket.on("playerMove", (room, data) => {
     let player = lobby.getSockPlayer(socket);
     //   let next_player
     io.to(room.ID).emit("moves", data, player.next);
   });
 
+  socket.on("resetGame", (room) => {
+    io.to(room.ID).emit("resetGame");
+  });
+
   socket.on("disconnect", () => {
     const status = lobby.removePlayer(socket);
     if (status === 1) {
       io.to(lobby.roomDataT.ID).emit("playerDisconnected", socket.id);
+      io.to(lobby.roomDataT.ID).emit("resetGame");
     } else if (status === -1) {
       console.log(`Could not remove player from this room: ${"?"}`);
     } else if (status === -2) {

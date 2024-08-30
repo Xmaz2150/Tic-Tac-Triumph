@@ -31,7 +31,7 @@ function TicTacToe() {
   }, [gameState,socket]);
 
   return (
-  
+  <div className="tictactoe">
       {waitingForPlayer ? (
         <div className="waiting-message">Waiting for player...</div>
       ) : (

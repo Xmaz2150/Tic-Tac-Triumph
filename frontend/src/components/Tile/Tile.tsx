@@ -51,8 +51,6 @@ function Tile({ index }: { index: number }) {
 
       socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
       listenMoves();
-    } else {
-      console.log("not eligible to play icon", playerTurn);
     }
   }
 
@@ -87,7 +85,6 @@ function Tile({ index }: { index: number }) {
         const player = allPlayers?.find((player) => player.icon == win_icon);
         if (player && player !== null) {
           setActivePlayer(player);
-          console.log(player.icon, playerTurn);
         }
         socket?.emit("GameWon", player);
 

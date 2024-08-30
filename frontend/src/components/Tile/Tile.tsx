@@ -31,6 +31,7 @@ function Tile({ index }: { index: number }) {
     score,
     setScore,
     allPlayers,
+    setWinner,
   } = useAppContext();
 
   interface Player {
@@ -102,7 +103,7 @@ function Tile({ index }: { index: number }) {
         setGameState(win);
 
         setStrikeClass(strikeClass);
-
+        setWinner(value1);
         return;
       }
     }
@@ -110,6 +111,7 @@ function Tile({ index }: { index: number }) {
     const areAllTilesFilledIn = tiles.every((tile) => tile);
     if (areAllTilesFilledIn) {
       setGameState(DRAW_STATE);
+      setWinner("Draw");
     }
   }
 

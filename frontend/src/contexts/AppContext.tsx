@@ -31,7 +31,10 @@ export type AppContextType = {
   setAllPlayers: React.Dispatch<React.SetStateAction<Player[] | null>>;
   score: Score;
   setScore: React.Dispatch<React.SetStateAction<Score>>;
-
+  winner: string | null;
+  setWinner: React.Dispatch<React.SetStateAction<string | null>>;
+  waitingForPlayer: boolean;
+  setWaitingForPlayer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

@@ -1,7 +1,6 @@
 import { useContext, createContext } from "react";
 import { Socket } from "socket.io-client";
 
-
 // Define the type for a player
 export type Player = {
   socket_id: string;
@@ -31,8 +30,6 @@ export type AppContextType = {
   setAllPlayers: React.Dispatch<React.SetStateAction<Player[] | null>>;
   score: Score;
   setScore: React.Dispatch<React.SetStateAction<Score>>;
-  winner: string | null;
-  setWinner: React.Dispatch<React.SetStateAction<string | null>>;
   waitingForPlayer: boolean;
   setWaitingForPlayer: React.Dispatch<React.SetStateAction<boolean>>;
 };

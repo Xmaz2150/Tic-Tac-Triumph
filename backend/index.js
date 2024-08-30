@@ -43,6 +43,8 @@ io.on("connection", (socket) => {
       const players = lobby.getPlayers();
       console.log(players);
       io.to(roomData.ID).emit("StartGame", players);
+    } else if (status === 0) {
+      socket.emit("waitingForPlayer");
     } else if (status === -1) {
       console.log("Room is full");
     }

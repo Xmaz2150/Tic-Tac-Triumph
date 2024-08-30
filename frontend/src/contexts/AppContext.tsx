@@ -20,6 +20,8 @@ export type AppContextType = {
   setActivePlayer: React.Dispatch<React.SetStateAction<Player | null>>;
   winner: string | null;
   setWinner: React.Dispatch<React.SetStateAction<string | null>>;
+  waitingForPlayer: boolean;
+  setWaitingForPlayer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

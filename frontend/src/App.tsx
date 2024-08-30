@@ -9,6 +9,7 @@ import { io, Socket } from "socket.io-client";
 
 import "styles/base.css";
 import "./style.css";
+const socketUrl = import.meta.env.VITE_SOCKET_URL;
 
 function App() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
@@ -23,7 +24,7 @@ function App() {
 
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3000");
+    const newSocket = io(socketUrl);
     setSocket(newSocket);
 
     newSocket.on("connect", () => {

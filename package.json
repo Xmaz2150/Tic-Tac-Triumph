@@ -2,11 +2,10 @@
     "name": "Tic-Tac-Triumph",
     "version": "1.0.0",
     "description": "",
-    "main": "backend/index.js",
+    "main": "api/server.js",
     "scripts": {
-        "start": "node backend/index.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "node backend/index.js"
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
     "author": "",

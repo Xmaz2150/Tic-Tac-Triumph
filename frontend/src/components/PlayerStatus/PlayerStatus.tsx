@@ -10,5 +10,4 @@ function PlayerStatus() {
     </div>
   );
 }
-
 export default PlayerStatus;

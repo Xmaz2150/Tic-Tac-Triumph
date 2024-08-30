@@ -14,5 +14,4 @@ function EndGameModal() {
     </div>
   );
 }
-
 export default EndGameModal;

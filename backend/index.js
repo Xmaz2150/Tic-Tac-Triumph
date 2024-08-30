@@ -1,28 +1,16 @@
-const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-const path = require("path");
-const cors = require("cors");
+const app = require("./app/api");
+
 require("dotenv").config();
 
-/* helpers */
-const Lobby = require("./lobby");
-
-const app = express();
+/* constants */
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:2000";
 const SERVER_URL = process.env.SERVER_URL || "http://localhost:3000";
-console.log(FRONTEND_URL);
 
-// Configure CORS options
-const corsOptions = {
-  origin: [FRONTEND_URL],
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+/* helpers */
+const Lobby = require("./lobby");
 
 const server = createServer(app);
 
@@ -31,13 +19,6 @@ const io = new Server(server, {
     origin: [FRONTEND_URL],
     methods: ["GET", "POST"],
   },
-});
-
-/* Serve static files from the 'frontend' directory */
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-app.get("/game", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 const lobby = new Lobby();
@@ -79,6 +60,7 @@ io.on("connection", (socket) => {
   });
 });
 
+console.log(FRONTEND_URL);
 server.listen(PORT, () => {
   console.log(`app listening at ${SERVER_URL}`);
 });

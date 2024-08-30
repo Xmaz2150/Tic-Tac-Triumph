@@ -15,7 +15,8 @@ This is the backend server for the Tic-Tac-Triumph multiplayer Tic-Tac-Toe game.
 - `lobby.js`: Handles the game lobby logic and player management.
 
 ## API Endpoints
-- `GET /`: Serves main page.
+- `GET /score`: Saves players score.
+- `GET /scores`: Returns all player's scores.
 
 ## Socket Events
 Uses Socket.io to handle real-time communication between players through events:

@@ -5,3 +5,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.winner {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #ff4081;
+  text-align: center;
+}

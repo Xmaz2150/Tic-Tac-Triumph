@@ -15,6 +15,7 @@ function App() {
   const [activePlayer, setActivePlayer] = useState<Player | null>(null);
   const [gameState, setGameState] = useState(PROGRESS_STATE);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [winner, setWinner] = useState<string | null>(null);
 
   useEffect(() => {
     const newSocket = io("http://localhost:3000");
@@ -39,8 +40,15 @@ function App() {
 
       if (!activePlayer) {
         setActivePlayer(player);
-        setPlayerTurn(player.icon);
+        setPlayerTurn(PLAYER_X); // Ensure X always starts first
       }
+
+      // Reset the game state when a new game starts
+      setGameState(PROGRESS_STATE);
+      setTiles(Array(9).fill(null));
+      setPlayerTurn(PLAYER_X);
+      setStrikeClass("");
+      setWinner(null);
     });
 
     newSocket.on("moves", (data) => {
@@ -70,6 +78,9 @@ function App() {
 
     activePlayer,
     setActivePlayer,
+
+    winner,
+    setWinner,
   };
 
   return (

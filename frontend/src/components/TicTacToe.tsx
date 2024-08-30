@@ -14,7 +14,7 @@ gameOverSound.volume = 0.2;
 import "./style.css";
 
 function TicTacToe() {
-  const { gameState, socket } = useAppContext();
+  const { gameState, winner, socket } = useAppContext();
 
   useEffect(() => {
     if (gameState === X_WINS_STATE || gameState === O_WINS_STATE) {
@@ -26,6 +26,7 @@ function TicTacToe() {
     <div className="tictactoe">
       <Board />
       <Reset />
+      {winner && <div className="winner">Winner: {winner}</div>}
     </div>
   );
 }

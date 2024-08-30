@@ -18,6 +18,8 @@ export type AppContextType = {
   socket: Socket | null;
   activePlayer: Player | null;
   setActivePlayer: React.Dispatch<React.SetStateAction<Player | null>>;
+  winner: string | null;
+  setWinner: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

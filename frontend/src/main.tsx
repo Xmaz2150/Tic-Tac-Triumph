@@ -1,5 +1,4 @@
-
-// @ts-expect-error Description goes here
+// @ts-expect-error
 import React from "react";
 
 import { StrictMode } from "react";

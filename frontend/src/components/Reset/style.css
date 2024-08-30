@@ -1,15 +1,35 @@
-.reset-button {
+.app {
   width: 100%;
-  height: 48px;
-  margin-top: 48px;
-  background-color: var(--saffron);
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: opacity ease-in-out 400ms;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.winner {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #ff4081;
+  text-align: center;
+}
+
+.reset-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #ff4081;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .reset-button:hover {
-  opacity: 0.8;
+  background-color: #e03570;
+}
+
+.waiting-message {
+  font-size: 1.5rem;
+  color: #ff4081;
+  text-align: center;
 }

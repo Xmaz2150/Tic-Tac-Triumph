@@ -26,6 +26,7 @@ function Tile({ index }: { index: number }) {
     socket,
     activePlayer,
     setActivePlayer,
+    setWinner,
   } = useAppContext();
 
   const isDisabled =
@@ -67,6 +68,7 @@ function Tile({ index }: { index: number }) {
 
         const win = value1 === PLAYER_X ? X_WINS_STATE : O_WINS_STATE;
         setGameState(win);
+        setWinner(value1);
         return;
       }
     }
@@ -74,6 +76,7 @@ function Tile({ index }: { index: number }) {
     const areAllTilesFilledIn = tiles.every((tile) => tile);
     if (areAllTilesFilledIn) {
       setGameState(DRAW_STATE);
+      setWinner("Draw");
     }
   }
 

@@ -1,5 +1,6 @@
-import { useAppContext } from 'contexts/AppContext';
-import './style.css';
+import { useAppContext } from "contexts/AppContext";
+
+import "./style.css";
 
 function PlayerStatus() {
   const { activePlayer } = useAppContext();

@@ -1,4 +1,3 @@
-
 import { useAppContext, Score } from "contexts/AppContext";
 
 import {
@@ -38,32 +37,28 @@ function Tile({ index }: { index: number }) {
     socket_id: string;
     // Add other properties of the activePlayer object here
   }
-  
+
   const isDisabled = tiles[index] !== null || gameState !== PROGRESS_STATE;
 
- function onClick() {
-   if (isDisabled) return;
+  function onClick() {
+    if (isDisabled) return;
     if (activePlayer && (activePlayer as Player).socket_id == socket?.id) {
-     
-   
-     const newTiles = [...tiles];
-     newTiles[index] = activePlayer.icon;
-     setTiles(newTiles);
+      const newTiles = [...tiles];
+      newTiles[index] = activePlayer.icon;
+      setTiles(newTiles);
 
-     setPlayerTurn(activePlayer.icon);
+      setPlayerTurn(activePlayer.icon);
 
-     socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
-     listenMoves()
-   }
-   else {
-        console.log("not eligible to play icon", playerTurn)
-      }
+      socket!.emit("playerMove", { ID: 1 }, { tiles: newTiles });
+      listenMoves();
+    } else {
+      console.log("not eligible to play icon", playerTurn);
+    }
   }
-
 
   function listenMoves() {
     socket!.on("moves", (data, player) => {
-      setActivePlayer(player || null)
+      setActivePlayer(player || null);
 
       clickSound.play();
       checkWinner(data.tiles);
@@ -78,27 +73,25 @@ function Tile({ index }: { index: number }) {
 
       if (value1 && value1 === value2 && value1 === value3) {
         const win = value1 === PLAYER_X ? X_WINS_STATE : O_WINS_STATE;
-        let win_icon = ""
+        let win_icon = "";
         const newScore: Score = { ...score };
         if (win == 0) {
           newScore.X += 1;
-          win_icon = "X"
+          win_icon = "X";
+        } else if (win == 1) {
+          newScore.O += 1;
+          win_icon = "O";
+        } else {
+          newScore.draw += 1;
         }
-        else if (win == 1) {
-          newScore.O += 1;  
-          win_icon = "O"
-        }
-        else {
-            newScore.draw += 1; 
-        }
-        const player = allPlayers?.find((player) => player.icon == win_icon)
+        const player = allPlayers?.find((player) => player.icon == win_icon);
         if (player && player !== null) {
-          setActivePlayer(player)
-          console.log(player.icon, playerTurn)
+          setActivePlayer(player);
+          console.log(player.icon, playerTurn);
         }
-        socket?.emit("GameWon", player)
-        
-        setScore(newScore)
+        socket?.emit("GameWon", player);
+
+        setScore(newScore);
 
         setGameState(win);
 

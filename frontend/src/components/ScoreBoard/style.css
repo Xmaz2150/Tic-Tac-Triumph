@@ -1,6 +1,10 @@
 .score-board {
   font-size: 1.5rem;
-  margin: 10px;
   color: moccasin;
-  animation: all 0.3s ease-in;
+}
+
+@media screen and (max-width: 767px) {
+  .score-board {
+    font-size: 1rem;
+  }
 }

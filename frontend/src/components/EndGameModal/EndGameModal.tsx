@@ -1,6 +1,7 @@
-import { useAppContext } from 'contexts/AppContext';
-import Reset from "components/Reset/Reset"
-import './style.css';
+import { useAppContext } from "contexts/AppContext";
+import Reset from "components/Reset/Reset";
+
+import "./style.css";
 
 function EndGameModal() {
   const { activePlayer } = useAppContext();
@@ -8,8 +9,10 @@ function EndGameModal() {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>{activePlayer ? `Player ${activePlayer.icon} Wins!` : "It's a Draw!"}</h2>
-        <Reset/>
+        <h2>
+          {activePlayer ? `Player ${activePlayer.icon} Wins!` : "It's a Draw!"}
+        </h2>
+        <Reset />
       </div>
     </div>
   );

@@ -45,16 +45,13 @@ function App() {
       const player = players.find((player: { socket_id: string | undefined; }) => {
         return player.socket_id === newSocket.id
       })
-      if (!activePlayer || Object.keys(activePlayer).length === 0) {
+      if (!player) return;
+      if (!activePlayer) {
         setActivePlayer(player);
         setPlayerTurn(PLAYER_X); // Ensure X always starts first
       }
-      setCurrentPlayer(player)
-      
-      
-    })
-
       setWaitingForPlayer(false);
+      setCurrentPlayer(player)
 
       // Reset the game state when a new game starts
       setGameState(PROGRESS_STATE);

@@ -9,7 +9,7 @@ import { io, Socket } from "socket.io-client";
 
 import "styles/base.css";
 import "./style.css";
-const socketUrl = import.meta.env.VITE_SOCKET_URL;
+const socketUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000";
 
 function App() {
   const [tiles, setTiles] = useState(Array(9).fill(null));

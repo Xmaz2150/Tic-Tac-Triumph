@@ -11,6 +11,7 @@ const Lobby = require("./lobby");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:2000";
+const SERVER_URL = process.env.SERVER_URL || "http://localhost:3000";
 console.log(FRONTEND_URL);
 
 // Configure CORS options
@@ -71,5 +72,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`app listening at http://localhost:${PORT}`);
+  console.log(`app listening at ${SERVER_URL}`);
 });

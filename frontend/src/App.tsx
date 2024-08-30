@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
+import { Player, Score } from 'contexts/AppContext'; 
 
 import TicTacToe from "components/TicTacToe";
-import { AppContext, AppContextType, Player } from "contexts/AppContext";
+import { AppContext, AppContextType } from "contexts/AppContext";
+
 import { PLAYER_X, PROGRESS_STATE } from "utils/constants";
 import { io, Socket } from "socket.io-client";
 
 import "styles/base.css";
 import "./style.css";
+const socketUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000";
 
 function App() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
   const [strikeClass, setStrikeClass] = useState("");
+  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [activePlayer, setActivePlayer] = useState<Player | null>(null);
+  const [allPlayers, setAllPlayers] = useState<Player[] | null>(null);
   const [gameState, setGameState] = useState(PROGRESS_STATE);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const [score, setScore] = useState<Score>({ X: 0, O: 0, draw:0});
+
   const [winner, setWinner] = useState<string | null>(null);
   const [waitingForPlayer, setWaitingForPlayer] = useState<boolean>(false);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3000");
+    const newSocket = io(socketUrl);
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
@@ -32,17 +39,20 @@ function App() {
 
     newSocket.emit("joinRoom", { ID: 1 });
 
-    newSocket.on("StartGame", (players: Player[]) => {
-      const player = players.find((player) => {
-        return player.socket_id === newSocket.id;
-      });
 
-      if (!player) return;
-
-      if (!activePlayer) {
+    newSocket.on("StartGame", (players) => {
+      setAllPlayers(players)
+      const player = players.find((player: { socket_id: string | undefined; }) => {
+        return player.socket_id === newSocket.id
+      })
+      if (!activePlayer || Object.keys(activePlayer).length === 0) {
         setActivePlayer(player);
         setPlayerTurn(PLAYER_X); // Ensure X always starts first
       }
+      setCurrentPlayer(player)
+      
+      
+    })
 
       setWaitingForPlayer(false);
 
@@ -91,14 +101,26 @@ function App() {
 
     socket,
 
+    currentPlayer,
+    setCurrentPlayer,
+
     activePlayer,
     setActivePlayer,
+
+
+    allPlayers,
+    setAllPlayers,
+
+    score,
+    setScore,
+
 
     winner,
     setWinner,
 
     waitingForPlayer,
     setWaitingForPlayer,
+
   };
 
   return (

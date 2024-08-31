@@ -26,6 +26,10 @@ app.get("/game", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
+app.post("/", async (req, res) => {
+  return res.status(403).json({ Error: "Forbidden" });
+});
+
 app.post("/score", async (req, res) => {
   const { username, score } = req.body;
   if (!username || !score) {
@@ -36,7 +40,7 @@ app.post("/score", async (req, res) => {
     res.status(200).json({ message: "Score saved successfully" });
   } catch (error) {
     console.error(error.message);
-    return res.status(400).json({ error: "Could not save" });
+    return res.status(400).json({ Error: "Could not save" });
   }
 });
 
@@ -46,7 +50,7 @@ app.get("/scores", async (req, res) => {
     res.status(200).json(scores);
   } catch (error) {
     console.error(error.message);
-    return res.status(400).json({ error: "Does not exist" });
+    return res.status(400).json({ Error: "Does not exist" });
   }
 });
 

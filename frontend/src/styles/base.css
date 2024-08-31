@@ -1,0 +1,30 @@
+:root {
+  --penn-blue: #091540;
+  --uranian-blue: #abd2fa;
+  --salmon: #ef798a;
+  --saffron: #e7bb41;
+  --white: #ffffff;
+  --font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--penn-blue);
+}
+
+#root {
+  font-family: var(--font-family);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
